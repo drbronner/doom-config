@@ -6,9 +6,7 @@
 
 (def-package! unicode-fonts
               :config
-              (unicode-fonts-setup)
-              )
-
+              (unicode-fonts-setup))
 
 ;; default GUI font
 
@@ -53,9 +51,8 @@
       (:prefix "i"
         :desc "Indent region" "r" #'indent-region)
 
-      (:prefix "o"
-        :desc "org-brain-visualize" "b" #'org-brain-visualize
-        :desc "org-store-link"      "y" #'org-store-link)
+      (:prefix "n"
+        :desc "org-brain-visualize" "b" #'org-brain-visualize)
 
       :desc "counsel-M-x"           "x" #'counsel-M-x
 
@@ -63,4 +60,10 @@
 
 (define-key org-brain-visualize-mode-map "/" 'counsel-brain)
 
-(setq display-buffer-alist nil)
+;; Doom customization
+
+;; Disable snipe's default =s= keybinding
+(after! evil-snipe (evil-snipe-mode -1))
+
+;; Don't consider the org-brain buffer to be a popup
+(set-popup-rule! "^\\*org-brain" :ignore t)
