@@ -10,21 +10,31 @@
 ;; which might do things with unicode fonts that will make emacs hang
 ;; if this package isn't loaded and set up.
 (def-package! unicode-fonts
-              :config
-              (unicode-fonts-setup))
+  :demand t
+  :config
+  (unicode-fonts-setup))
 
-;; If we don't declare this, flycheck won't find flycheck-ledger.
-;; Not sure why this or an explicit ~require~ is needed
-(def-package! flycheck-ledger)
+(def-package! flycheck-ledger
+  :defer t)
 
-(def-package! ledger-mode)
+(def-package! ledger-mode
+  :defer t)
 
 (def-package! org-ref
+  :defer t
   :config
   (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
   (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
         org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
         org-ref-pdf-directory "~/Dropbox/bibliography/bibtex-pdfs/"))
+
+;; I'm running my own fork of org-brain,
+;; and I want to load
+;; so we use use-package instead of def-package!.
+(add-to-list 'load-path "~/gits/org-brain")
+(use-package org-brain
+  :defer t
+  :commands org-brain-visualize)
 
 ;; Doom package customization
 ;; ==========================
@@ -43,20 +53,9 @@
   (setq org-id-link-to-org-use-id t)
   (setq org-cycle-emulate-tab nil))
 
-(after! evil
-  (setq evil-cross-lines t))
+(after! evil (setq evil-cross-lines t))
 
-;; org-brain setup
-;; ===============
-
-;; For some reason flycheck gets confused
-;; if I don't specify the .el file here,
-;; even though emacs loads 'org-brain just fine.
-;; Flycheck's confusion makes emacs hang for a good 30 seconds
-;; so I'm listing the file here to placate it.
-(add-to-list 'load-path "~/gits/org-brain")
-(require 'org-brain)
-;; (evil-set-initial-state 'org-brain-visualize-mode 'emacs)
+(after! flycheck (require 'flycheck-ledger))
 
 ;; General emacs configuration
 ;; ===========================
