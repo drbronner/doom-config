@@ -67,8 +67,10 @@
 ;; ============
 
 (map! (:leader
+        "be" #'eval-buffer
         "br" #'revert-buffer
         "bs" #'org-tree-to-indirect-buffer
+        "ci" #'edebug-defun
         "er" #'eval-region
         "ir" #'indent-region
         "ob" #'org-brain-visualize
@@ -112,6 +114,7 @@
         :n "C"     #'org-brain-remove-child
         :n "C-j"   #'forward-button
         :n "C-k"   #'backward-button
+        :n "C-o"   #'org-brain-visualize-back
         :n "F"     #'org-brain-remove-friendship
         :n "P"     #'org-brain-remove-parent
         :n "c"     #'org-brain-add-child
@@ -119,6 +122,8 @@
         :n "gc"    #'org-brain-goto-child
         :n "gp"    #'org-brain-goto-parent
         :n "gr"    #'revert-buffer
+        :n "H"     #'org-brain-add-child-headline
+        :n "m"     #'org-brain-visualize-mind-map
         :n "n"     #'org-brain-pin
         :n "o"     #'org-brain-goto-current
         :n "p"     #'org-brain-add-parent
