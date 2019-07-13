@@ -22,7 +22,7 @@
 
 (def-package! org-ref
   :defer t
-  :config
+  :init
   (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
   (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
         org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
@@ -34,7 +34,9 @@
 (add-to-list 'load-path "~/gits/org-brain")
 (use-package org-brain
   :defer t
-  :commands org-brain-visualize)
+  :commands org-brain-visualize
+  :config
+  (setq org-brain-refile-max-level 10))
 
 ;; Doom package customization
 ;; ==========================
@@ -46,6 +48,7 @@
 (set-popup-rule! "^\\*org-brain" :ignore t)
 
 (after! org
+  (require 'org-ref)
   ;; Doom restricts tab cycling to only cycle the current subtree.
   ;; This restores default behavior.
   (remove-hook 'org-tab-first-hook #'+org|cycle-only-current-subtree)
