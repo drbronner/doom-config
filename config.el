@@ -36,7 +36,8 @@
   :defer t
   :commands org-brain-visualize
   :config
-  (setq org-brain-refile-max-level 10))
+  (setq org-brain-refile-max-level 10)
+  (set-face-attribute 'org-brain-selected nil :background "gray32"))
 
 ;; Doom package customization
 ;; ==========================
@@ -60,8 +61,8 @@
 
 (after! flycheck (require 'flycheck-ledger))
 
-;; General emacs configuration
-;; ===========================
+;; Faces and fonts
+;; ===============
 
 (set-default-font "IBM Plex Mono")
 (set-face-attribute 'default nil :height 140)
@@ -69,10 +70,15 @@
 ;; Key bindings
 ;; ============
 
-(map! (:leader
+(map! :nmv "/" #'swiper-isearch
+      :nmv "*" #'swiper-isearch-thing-at-point
+
+      (:leader
         "be" #'eval-buffer
         "br" #'revert-buffer
         "bs" #'org-tree-to-indirect-buffer
+        "cb" #'edebug-set-breakpoint
+        "cB" #'edebug-unset-breakpoint
         "ci" #'edebug-defun
         "er" #'eval-region
         "ir" #'indent-region
@@ -83,7 +89,13 @@
         :mnv "[o" #'org-previous-visible-heading
         :mnv "]o" #'org-next-visible-heading
         :mnv "[*" #'outline-up-heading
-        :mni [(shift meta return)] 'org-insert-subheading
+        :mni [(shift meta return)] #'org-insert-subheading
+        :mnvi "M-h" #'org-metaleft
+        :mnvi "M-j" #'org-metadown
+        :mnvi "M-k" #'org-metaup
+        :mnvi "M-l" #'org-metaright
+        :mnvi "M-H" #'org-shiftmetaleft
+        :mnvi "M-L" #'org-shiftmetaright
 
         "s-0" (lambda () (interactive) (show-all))
         "s-1" (lambda () (interactive) (org-global-cycle 1))
@@ -130,4 +142,11 @@
         :n "n"     #'org-brain-pin
         :n "o"     #'org-brain-goto-current
         :n "p"     #'org-brain-add-parent
-        :n "u"     #'org-brain-visualize-parent))
+        :n "u"     #'org-brain-visualize-parent)
+
+      (:mode apropos-mode
+        :nmv "<tab>" #'forward-button)
+
+      ;; This corrects what seems to be a misconfiguration in Doom Emacs
+      (:map swiper-isearch-map
+        "M-n" #'ivy-next-history-element))
