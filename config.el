@@ -48,13 +48,18 @@
 ;; Don't consider the org-brain buffer to be a popup
 (set-popup-rule! "^\\*org-brain" :ignore t)
 
-(after! org
+(def-package! org
+  :defer t
+  :init
+  (add-to-list 'org-modules 'org-id)
+  (setq org-id-link-to-org-use-id t)
+  (setq org-directory "~/Dropbox/docs/archive/2019/drafts")
+
+  :config
   (require 'org-ref)
   ;; Doom restricts tab cycling to only cycle the current subtree.
   ;; This restores default behavior.
   (remove-hook 'org-tab-first-hook #'+org|cycle-only-current-subtree)
-  (setq org-directory "~/Dropbox/docs/archive/2019/drafts")
-  (setq org-id-link-to-org-use-id t)
   (setq org-cycle-emulate-tab nil))
 
 (after! evil (setq evil-cross-lines t))
