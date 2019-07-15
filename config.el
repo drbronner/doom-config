@@ -60,7 +60,14 @@
   ;; Doom restricts tab cycling to only cycle the current subtree.
   ;; This restores default behavior.
   (remove-hook 'org-tab-first-hook #'+org|cycle-only-current-subtree)
-  (setq org-cycle-emulate-tab nil))
+  (setq org-cycle-emulate-tab nil)
+  (setq org-M-RET-may-split-line t)
+  (setq org-insert-heading-respect-content nil)
+  (setq-default prettify-symbols-alist '(("#+begin_src" . "λ")
+                                         ("#+end_src"   . "/λ")))
+  (setq prettify-symbols-unprettify-at-point t)
+  (add-hook 'org-mode-hook 'prettify-symbols-mode)
+  (add-hook 'org-mode-hook 'turn-on-flyspell))
 
 (after! evil (setq evil-cross-lines t))
 
@@ -101,6 +108,9 @@
         :mnvi "M-l" #'org-metaright
         :mnvi "M-H" #'org-shiftmetaleft
         :mnvi "M-L" #'org-shiftmetaright
+        (:leader
+          :mnv "ol" #'org-open-at-point
+          :n "ot" #'org-insert-structure-template)
 
         "s-0" (lambda () (interactive) (show-all))
         "s-1" (lambda () (interactive) (org-global-cycle 1))
@@ -152,6 +162,19 @@
       (:mode apropos-mode
         :nmv "<tab>" #'forward-button)
 
+      ;; Modify default DOOM keybindings
+
       ;; This corrects what seems to be a misconfiguration in Doom Emacs
+      ;; which binds "M-n" to search for thing under point.
       (:map swiper-isearch-map
-        "M-n" #'ivy-next-history-element))
+        "M-n" #'ivy-next-history-element)
+
+      ;; Doom binds these in modules/lang/org/config.el
+      ;; to navigate the org tree or to navigate table cells
+      ;; This overwrites the
+      ;; (:map evil-org-mode-map
+      ;;   :i "C-l" nil
+      ;;   :i "C-h" nil
+      ;;   :i "C-k" nil
+      ;;   :i "C-j" nil))
+      )
