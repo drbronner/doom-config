@@ -67,7 +67,10 @@
                                          ("#+end_src"   . "/λ")))
   (setq prettify-symbols-unprettify-at-point t)
   (add-hook 'org-mode-hook 'prettify-symbols-mode)
-  (add-hook 'org-mode-hook 'turn-on-flyspell))
+  ;; org-brain loads a large number of org buffers,
+  ;; and this slows things way down
+  ;; (add-hook 'org-mode-hook 'turn-on-flyspell)
+  )
 
 (after! evil (setq evil-cross-lines t))
 
