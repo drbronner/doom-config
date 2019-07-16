@@ -113,6 +113,7 @@
         :mnvi "M-l" #'org-metaright
         :mnvi "M-H" #'org-shiftmetaleft
         :mnvi "M-L" #'org-shiftmetaright
+        :n "zw" #'widen
         (:leader
           :mnv "ol" #'org-open-at-point
           :n "ot" #'org-insert-structure-template)
