@@ -69,14 +69,23 @@
                                          ("#+end_src"   . "/λ")))
   (setq prettify-symbols-unprettify-at-point t)
   (add-hook 'org-mode-hook 'prettify-symbols-mode)
+  (remove-hook 'org-mode-hook 'auto-fill-mode)
+  ;; Display local-list hyphens with small bullets
+  (font-lock-add-keywords 'org-mode
+                          '(("^[[:space:]]*\\(-\\) "
+                             0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•")))))
   ;; org-brain loads a large number of org buffers,
   ;; and this slows things way down
   ;; (add-hook 'org-mode-hook 'turn-on-flyspell)
+
   )
 
 (after! evil (setq evil-cross-lines t))
 
 (after! flycheck (require 'flycheck-ledger))
+
+;; (after! hl-fill-column
+;;  (set-face-attribute 'hl-fill-column-face nil :background "dark slate blue"))
 
 ;; Faces and fonts
 ;; ===============
@@ -102,6 +111,7 @@
         "ob" #'org-brain-visualize
         "x"  #'counsel-M-x)
 
+
       (:mode org-mode
         :mnv "[o" #'org-previous-visible-heading
         :mnv "]o" #'org-next-visible-heading
@@ -113,10 +123,17 @@
         :mnvi "M-l" #'org-metaright
         :mnvi "M-H" #'org-shiftmetaleft
         :mnvi "M-L" #'org-shiftmetaright
+        :mnvi "M-<return>" #'org-meta-return
+        :mn "M-o" (lambda (arg)
+                    (interactive "p")
+                    (evil-org-append-line arg)
+                    (org-meta-return))
         :n "zw" #'widen
         (:leader
           :mnv "ol" #'org-open-at-point
           :n "ot" #'org-insert-structure-template)
+        (:localleader
+          :n "x" #'org-export-dispatch)
 
         "s-0" (lambda () (interactive) (show-all))
         "s-1" (lambda () (interactive) (org-global-cycle 1))
