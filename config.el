@@ -78,14 +78,13 @@
   ;; and this slows things way down
   ;; (add-hook 'org-mode-hook 'turn-on-flyspell)
 
+  ;; Shadow the default rendering of strikethrough with red highlighting
+  (add-to-list 'org-emphasis-alist '("+" . ((:foreground "red"))))
   )
 
 (after! evil (setq evil-cross-lines t))
 
 (after! flycheck (require 'flycheck-ledger))
-
-;; (after! hl-fill-column
-;;  (set-face-attribute 'hl-fill-column-face nil :background "dark slate blue"))
 
 ;; Faces and fonts
 ;; ===============
