@@ -38,7 +38,7 @@
   :config
   (setq org-brain-refile-max-level 10)
   (setq org-brain-child-fill-column-sexp '(window-width))
-  (set-face-attribute 'org-brain-selected nil :background "gray32")
+  (set-face-attribute 'org-brain-selected-face-template nil :background "gray32")
   (set-face-attribute 'org-brain-button nil :bold nil))
 
 ;; Doom package customization
@@ -96,10 +96,10 @@
 ;; Key bindings
 ;; ============
 
-(map! :nmv "/" (lambda () (interactive) (better-jumper-set-jump) (swiper-isearch))
-      :nmv "*" #'swiper-isearch-thing-at-point
+(map! :nmv "C-s" (lambda () (interactive) (better-jumper-set-jump) (swiper-isearch))
 
       (:leader
+        "/*" #'swiper-isearch-thing-at-point
         "be" #'eval-buffer
         "br" #'revert-buffer
         "bs" #'org-tree-to-indirect-buffer
