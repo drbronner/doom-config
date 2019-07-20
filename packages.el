@@ -10,3 +10,5 @@
 (package! ledger-mode)
 (package! org-ref)
 (package! unicode-fonts)
+(package! vdiff)
+(package! vdiff-magit)
