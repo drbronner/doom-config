@@ -159,7 +159,7 @@
                     (org-meta-return))
         :n "zw" #'widen
         (:leader
-          :mnv "ol" #'org-open-at-point
+          :mnv "oo" #'org-open-at-point
           :n "ot" #'org-insert-structure-template)
         (:localleader
           :n "x" #'org-export-dispatch)
@@ -208,7 +208,16 @@
         :n "H"     #'org-brain-add-child-headline
         :n "m"     #'org-brain-visualize-mind-map
         :n "n"     #'org-brain-pin
-        :n "o"     #'org-brain-goto-current
+        :n "oo"    #'org-brain-goto-current
+        :n "oc"    (lambda () (interactive)
+                     (org-brain-goto-child (org-brain-entry-at-pt) t))
+        :n "oe"    (lambda () (interactive)
+                     (org-brain-goto-end (org-brain-entry-at-pt)))
+        :n "op"    (lambda () (interactive)
+                     (org-brain-goto-parent (org-brain-entry-at-pt) t))
+        :n "oz"    (lambda () (interactive)
+                     (org-brain-goto-current) (org-narrow-to-subtree))
+        :n "of"    #'org-brain-goto-friend
         :n "p"     #'org-brain-add-parent
         :n "u"     #'org-brain-visualize-parent)
 
