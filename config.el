@@ -188,36 +188,37 @@
         "s-9"     (lambda () (interactive) (set-selective-display (* tab-width 9))))
 
       (:mode org-brain-visualize-mode
+        :n "."     #'org-brain-select-button
         :n "/"     #'counsel-brain
         :n ":"     #'org-brain-clear-selected
         :n ";"     #'org-brain-select
-        :n "."     #'org-brain-select-button
         :n "<tab>" #'forward-button
         :n "TAB"   #'forward-button
         :n "C"     #'org-brain-remove-child
+        :n "C"     #'org-brain-unlink-child
         :n "C-j"   #'forward-button
         :n "C-k"   #'backward-button
         :n "C-o"   #'org-brain-visualize-back
         :n "F"     #'org-brain-remove-friendship
-        :n "P"     #'org-brain-remove-parent
+        :n "H"     #'org-brain-add-child-headline
+        :n "P"     #'org-brain-unlink-parent
         :n "c"     #'org-brain-add-child
         :n "f"     #'org-brain-add-friendship
         :n "gc"    #'org-brain-goto-child
         :n "gp"    #'org-brain-goto-parent
         :n "gr"    #'revert-buffer
-        :n "H"     #'org-brain-add-child-headline
         :n "m"     #'org-brain-visualize-mind-map
         :n "n"     #'org-brain-pin
-        :n "oo"    #'org-brain-goto-current
         :n "oc"    (lambda () (interactive)
                      (org-brain-goto-child (org-brain-entry-at-pt) t))
         :n "oe"    (lambda () (interactive)
                      (org-brain-goto-end (org-brain-entry-at-pt)))
+        :n "of"    #'org-brain-goto-friend
+        :n "oo"    #'org-brain-goto-current
         :n "op"    (lambda () (interactive)
                      (org-brain-goto-parent (org-brain-entry-at-pt) t))
         :n "oz"    (lambda () (interactive)
                      (org-brain-goto-current) (org-narrow-to-subtree))
-        :n "of"    #'org-brain-goto-friend
         :n "p"     #'org-brain-add-parent
         :n "u"     #'org-brain-visualize-parent)
 
