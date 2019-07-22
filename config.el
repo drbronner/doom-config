@@ -68,7 +68,6 @@
   :config
   (setq org-brain-refile-max-level 10)
   (setq org-brain-child-fill-column-sexp '(window-width))
-  (set-face-attribute 'org-brain-selected-face-template nil :background "gray32")
   (set-face-attribute 'org-brain-button nil :bold nil))
 
 ;; Doom package customization
