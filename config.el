@@ -91,6 +91,7 @@
   ;; Doom restricts tab cycling to only cycle the current subtree.
   ;; This restores default behavior.
   (remove-hook 'org-tab-first-hook #'+org|cycle-only-current-subtree)
+  (remove-hook 'org-tab-first-hook #'+org|indent-maybe)
   (setq org-cycle-emulate-tab nil)
   (setq org-M-RET-may-split-line t)
   (setq org-insert-heading-respect-content nil)
@@ -150,7 +151,9 @@
         :mnv "[o" #'org-previous-visible-heading
         :mnv "]o" #'org-next-visible-heading
         :mnv "[*" #'outline-up-heading
-        :mni [(shift meta return)] #'org-insert-subheading
+        :mni [(shift meta return)] (lambda () (interactive)
+                                     (cond ((org-in-item-p) (org-insert-item) (org-indent-item))
+                                           (t (org-insert-heading) (org-do-demote))))
         :mnvi "M-h" #'org-metaleft
         :mnvi "M-j" #'org-metadown
         :mnvi "M-k" #'org-metaup
