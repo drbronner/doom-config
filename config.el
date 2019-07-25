@@ -111,9 +111,15 @@
   (add-to-list 'org-emphasis-alist '("+" . ((:foreground "red"))))
   )
 
+(after! git-commit
+  (remove-hook 'git-commit-setup-hook 'git-commit-turn-on-auto-fill))
+
 (after! evil (setq evil-cross-lines t))
 
 (after! flycheck (require 'flycheck-ledger))
+
+(after! smartparens
+  (smartparens-global-mode -1))
 
 ;; Faces and fonts
 ;; ===============
@@ -213,6 +219,8 @@
         :n "oe"    (lambda () (interactive)
                      (org-brain-goto-end (org-brain-entry-at-pt)))
         :n "of"    #'org-brain-goto-friend
+        :n "oh"    (lambda () (interactive)
+                     (org-brain-goto-current t))
         :n "oo"    #'org-brain-goto-current
         :n "op"    (lambda () (interactive)
                      (org-brain-goto-parent (org-brain-entry-at-pt) t))
