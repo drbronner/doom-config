@@ -68,6 +68,7 @@
   :config
   (setq org-brain-refile-max-level 10)
   (setq org-brain-child-fill-column-sexp '(window-width))
+  (setq org-brain-link-prefix "brain:")
   (set-face-attribute 'org-brain-button nil :bold nil))
 
 ;; Doom package customization
