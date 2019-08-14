@@ -113,6 +113,11 @@
   (add-to-list 'org-emphasis-alist '("+" . ((:foreground "red"))))
   )
 
+(after! org-contacts
+  (setq org-contacts-files (list (concat org-directory "/brain/people.org")))
+  (setq org-contacts-matcher
+        (concat org-contacts-matcher "|URL<>\"\"|GITHUB<>\"\"")))
+
 (after! git-commit
   (remove-hook 'git-commit-setup-hook 'git-commit-turn-on-auto-fill))
 
@@ -251,4 +256,8 @@
       ;;   :i "C-h" nil
       ;;   :i "C-k" nil
       ;;   :i "C-j" nil))
+
+      (:mode ledger-mode
+        :i "<tab>" #'complete-symbol)
+
       )
