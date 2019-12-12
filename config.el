@@ -236,7 +236,9 @@
         :n "oz"    (lambda () (interactive)
                      (org-brain-goto-current) (org-narrow-to-subtree))
         :n "p"     #'org-brain-add-parent
-        :n "u"     #'org-brain-visualize-parent)
+        :n "u"     #'org-brain-visualize-parent
+        :n "s"     #'org-brain-select-dwim
+        :n "S"     #'org-brain-select-map)
 
       (:mode apropos-mode
         :nmv "<tab>" #'forward-button)

@@ -12,3 +12,4 @@
 (package! unicode-fonts)
 (package! vdiff)
 (package! vdiff-magit)
+(package! writeroom-mode)
